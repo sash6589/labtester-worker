@@ -1,7 +1,7 @@
 package ru.ifmo.fitp.labtesterworker.service.submit;
 
 import org.apache.log4j.Logger;
-import ru.ifmo.fitp.labtesterworker.util.Enviroment;
+import ru.ifmo.fitp.labtesterworker.util.Environment;
 
 import java.io.IOException;
 
@@ -20,7 +20,7 @@ public class ProgramRunner {
         LOG.info("Run program " + programName);
 
         ProcessBuilder processBuilder = new ProcessBuilder("python", programName);
-        processBuilder.directory(Enviroment.ENVIRONMENT_DIR);
+        processBuilder.directory(Environment.ENVIRONMENT_DIR);
 
         try {
             Process process = processBuilder.start();

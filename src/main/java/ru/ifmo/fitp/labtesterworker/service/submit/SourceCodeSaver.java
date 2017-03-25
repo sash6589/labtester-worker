@@ -2,7 +2,7 @@ package ru.ifmo.fitp.labtesterworker.service.submit;
 
 import org.apache.log4j.Logger;
 import ru.ifmo.fitp.labtesterworker.model.SourceCode;
-import ru.ifmo.fitp.labtesterworker.util.Enviroment;
+import ru.ifmo.fitp.labtesterworker.util.Environment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +23,7 @@ public class SourceCodeSaver {
         createDirectory();
 
         String programName = "Program" + sourceCode.getId() + ".py";
-        String path = Enviroment.ENVIRONMENT_DIR_NAME + File.separator + programName;
+        String path = Environment.ENVIRONMENT_DIR_NAME + File.separator + programName;
 
         LOG.info("Saving source code to " + path);
 
@@ -37,7 +37,7 @@ public class SourceCodeSaver {
     }
 
     private void createDirectory() {
-        File dir = Enviroment.ENVIRONMENT_DIR;
+        File dir = Environment.ENVIRONMENT_DIR;
         if (!dir.exists()) {
             dir.mkdir();
         }

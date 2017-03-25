@@ -2,7 +2,7 @@ package ru.ifmo.fitp.labtesterworker.service.submit;
 
 import org.apache.log4j.Logger;
 import ru.ifmo.fitp.labtesterworker.model.ProgramOutput;
-import ru.ifmo.fitp.labtesterworker.util.Enviroment;
+import ru.ifmo.fitp.labtesterworker.util.Environment;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class OutputCollector {
     private String pathToOutput;
 
     public OutputCollector() {
-        this.pathToOutput = Enviroment.ENVIRONMENT_DIR_NAME + File.separator + "output.txt";
+        this.pathToOutput = Environment.ENVIRONMENT_DIR_NAME + File.separator + "output.txt";
     }
 
     public ProgramOutput collectOutput() {

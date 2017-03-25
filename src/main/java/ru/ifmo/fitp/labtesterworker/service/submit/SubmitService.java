@@ -15,8 +15,10 @@ public class SubmitService {
 
         String programName = saveToFile();
         runProgram(programName);
+        ProgramOutput outout = collectOutput();
+        cleanEnviroment();
 
-        return collectOutput();
+        return outout;
     }
 
     private String saveToFile() {
@@ -32,5 +34,9 @@ public class SubmitService {
     private ProgramOutput collectOutput() {
         OutputCollector outputCollector = new OutputCollector();
         return outputCollector.collectOutput();
+    }
+
+    private void cleanEnviroment() {
+        new EnvironmentCleaner().clean();
     }
 }
