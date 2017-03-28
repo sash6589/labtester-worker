@@ -1,19 +1,15 @@
 package ru.ifmo.fitp.labtesterworker.service.submit;
 
+import org.springframework.stereotype.Service;
 import ru.ifmo.fitp.labtesterworker.model.ProgramOutput;
 import ru.ifmo.fitp.labtesterworker.model.SourceCode;
 
+@Service
 public class SubmitService {
 
-    private SourceCode sourceCode;
+    public ProgramOutput process(SourceCode sourceCode) {
 
-    public SubmitService(SourceCode sourceCode) {
-        this.sourceCode = sourceCode;
-    }
-
-    public ProgramOutput process() {
-
-        String programName = saveToFile();
+        String programName = saveToFile(sourceCode);
         runProgram(programName);
         ProgramOutput outout = collectOutput();
         cleanEnviroment();
@@ -21,7 +17,7 @@ public class SubmitService {
         return outout;
     }
 
-    private String saveToFile() {
+    private String saveToFile(SourceCode sourceCode) {
         SourceCodeSaver fileSaver = new SourceCodeSaver(sourceCode);
         return fileSaver.save();
     }
