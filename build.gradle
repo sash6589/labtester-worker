@@ -15,6 +15,7 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
+//noinspection GroovyAssignabilityCheck
 jar {
     baseName = 'labtester-worker'
     version = '0.1.0'
@@ -32,6 +33,7 @@ dependencies {
     compile('com.fasterxml.jackson.core:jackson-databind:2.8.7')
 
     compile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+    compile group: 'commons-io', name: 'commons-io', version: '2.5'
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile group: 'junit', name: 'junit', version: '4.12'

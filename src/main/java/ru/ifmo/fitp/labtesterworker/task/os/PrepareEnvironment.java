@@ -5,15 +5,13 @@ import ru.ifmo.fitp.labtesterworker.task.AbstractTask;
 import ru.ifmo.fitp.labtesterworker.util.Environment;
 
 import java.io.File;
-import java.util.Map;
 
-public class PrepareEnvironmentTask extends AbstractTask {
+import static ru.ifmo.fitp.labtesterworker.task.TaskUtils.ENVIRONMENT_DIR_NAME_STORAGE_KEY;
+import static ru.ifmo.fitp.labtesterworker.task.TaskUtils.ENVIRONMENT_DIR_STORAGE_KEY;
 
-    private static final Logger LOG = Logger.getLogger(PrepareEnvironmentTask.class);
+public class PrepareEnvironment extends AbstractTask {
 
-    public PrepareEnvironmentTask(Map<String, Object> storage) {
-        super(storage);
-    }
+    private static final Logger LOG = Logger.getLogger(PrepareEnvironment.class);
 
     @Override
     public void perform() {
@@ -32,7 +30,7 @@ public class PrepareEnvironmentTask extends AbstractTask {
     }
 
     private void fillStorage() {
-        storage.put("environment-dir", Environment.ENVIRONMENT_DIR);
-        storage.put("environment-dir-name", Environment.ENVIRONMENT_DIR_NAME);
+        storage.put(ENVIRONMENT_DIR_STORAGE_KEY, Environment.ENVIRONMENT_DIR);
+        storage.put(ENVIRONMENT_DIR_NAME_STORAGE_KEY, Environment.ENVIRONMENT_DIR_NAME);
     }
 }

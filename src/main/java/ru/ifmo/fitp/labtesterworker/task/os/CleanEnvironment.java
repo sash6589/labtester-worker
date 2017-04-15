@@ -1,19 +1,22 @@
-package ru.ifmo.fitp.labtesterworker.service.submit;
+package ru.ifmo.fitp.labtesterworker.task.os;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import ru.ifmo.fitp.labtesterworker.task.AbstractTask;
 import ru.ifmo.fitp.labtesterworker.util.Environment;
 
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
-public class EnvironmentCleaner {
+public class CleanEnvironment extends AbstractTask {
 
-    private static final Logger LOG = Logger.getLogger(EnvironmentCleaner.class);
+    private static final Logger LOG = Logger.getLogger(CleanEnvironment.class);
 
-    private static final List<String> EXCLUDED_FILES = Collections.singletonList("input.txt");
+    private static final List<String> EXCLUDED_FILES = Collections.singletonList("test");
 
-    public void clean() {
+    @Override
+    public void perform() {
 
         LOG.info("Cleaning environment");
 
@@ -22,12 +25,11 @@ public class EnvironmentCleaner {
         if (files != null) {
             for (File file : files) {
                 if (!EXCLUDED_FILES.contains(file.getName())) {
-                    file.delete();
+                    FileUtils.deleteQuietly(file);
                 }
             }
         } else {
             LOG.error(envDir.getAbsolutePath() + " isn't directory");
         }
     }
-
 }
