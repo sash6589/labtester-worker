@@ -1,7 +1,7 @@
 package ru.ifmo.fitp.labtesterworker.domain.transformer;
 
 import org.springframework.stereotype.Component;
-import ru.ifmo.fitp.labtesterworker.domain.dao.task.*;
+import ru.ifmo.fitp.labtesterworker.dao.task.*;
 import ru.ifmo.fitp.labtesterworker.domain.task.TaskPipeline;
 import ru.ifmo.fitp.labtesterworker.domain.task.codestyle.CheckCodestyle;
 import ru.ifmo.fitp.labtesterworker.domain.task.git.GitClone;

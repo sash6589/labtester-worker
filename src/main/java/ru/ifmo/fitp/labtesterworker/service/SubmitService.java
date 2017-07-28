@@ -2,8 +2,6 @@ package ru.ifmo.fitp.labtesterworker.service;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import ru.ifmo.fitp.labtesterworker.domain.dao.task.AbstractTaskDAO;
-import ru.ifmo.fitp.labtesterworker.domain.transformer.TaskTransformer;
 import ru.ifmo.fitp.labtesterworker.domain.report.SubmitReport;
 import ru.ifmo.fitp.labtesterworker.domain.task.TaskPipeline;
 

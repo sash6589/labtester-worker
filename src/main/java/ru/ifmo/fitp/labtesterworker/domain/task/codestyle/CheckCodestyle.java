@@ -1,7 +1,7 @@
 package ru.ifmo.fitp.labtesterworker.domain.task.codestyle;
 
 import org.apache.log4j.Logger;
-import ru.ifmo.fitp.labtesterworker.domain.dao.task.CheckCodestyleDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.CheckCodestyleDAO;
 import ru.ifmo.fitp.labtesterworker.domain.task.CommandTask;
 
 import java.util.Arrays;

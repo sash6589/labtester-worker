@@ -1,4 +1,4 @@
-package ru.ifmo.fitp.labtesterworker.domain.dao.task;
+package ru.ifmo.fitp.labtesterworker.dao.task;
 
 public class PrepareEnvironmentDAO extends AbstractTaskDAO {
     public PrepareEnvironmentDAO() {

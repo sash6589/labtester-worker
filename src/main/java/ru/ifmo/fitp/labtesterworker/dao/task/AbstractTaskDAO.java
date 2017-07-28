@@ -1,4 +1,4 @@
-package ru.ifmo.fitp.labtesterworker.domain.dao.task;
+package ru.ifmo.fitp.labtesterworker.dao.task;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

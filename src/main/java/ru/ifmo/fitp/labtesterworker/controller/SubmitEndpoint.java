@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.ifmo.fitp.labtesterworker.domain.dao.task.AbstractTaskDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.TasksDAO;
 import ru.ifmo.fitp.labtesterworker.domain.report.SubmitReport;
 import ru.ifmo.fitp.labtesterworker.domain.task.TaskPipeline;
 import ru.ifmo.fitp.labtesterworker.domain.transformer.TaskTransformer;
@@ -26,11 +26,11 @@ public class SubmitEndpoint {
     }
 
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public ResponseEntity<SubmitReport> submit(@RequestBody AbstractTaskDAO[] tasksDAO) {
+    public ResponseEntity<SubmitReport> submit(@RequestBody TasksDAO tasksDAO) {
 
         LOG.info("New submit request");
 
-        TaskPipeline taskPipeline = taskTransformer.transform(tasksDAO);
+        TaskPipeline taskPipeline = taskTransformer.transform(tasksDAO.getTasks());
         SubmitReport submitReport = submitService.submit(taskPipeline);
 
         return new ResponseEntity<>(submitReport, HttpStatus.OK);
