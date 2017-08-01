@@ -27,7 +27,7 @@ public class GitClone extends AbstractTask {
     @Override
     public void perform() {
 
-        LOG.info("Clone repository");
+        LOG.info("Clone repository from " + gitUrl);
 
         cloneRepository();
         fillStorage();
@@ -63,7 +63,7 @@ public class GitClone extends AbstractTask {
             return envDir;
         }
         Optional<File> optional = Arrays.stream(files)
-                .filter(file -> !"test".equals(file.getName()))
+                .filter(file -> !("test".equals(file.getName())))
                 .findFirst();
 
         return optional.orElse(envDir);
