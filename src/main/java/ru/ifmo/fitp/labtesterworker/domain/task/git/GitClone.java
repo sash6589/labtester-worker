@@ -8,6 +8,7 @@ import ru.ifmo.fitp.labtesterworker.util.ProcessConfiguration;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Optional;
 
 import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.ENVIRONMENT_DIR_STORAGE_KEY;
 import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.REPOSITORY_DIR_NAME_STORAGE_KEY;
@@ -60,8 +61,11 @@ public class GitClone extends AbstractTask {
         if (files == null) {
             LOG.error("Environment directory is empty");
             return envDir;
-        } else {
-            return files[0];
         }
+        Optional<File> optional = Arrays.stream(files)
+                .filter(file -> !"test".equals(file.getName()))
+                .findFirst();
+
+        return optional.orElse(envDir);
     }
 }
