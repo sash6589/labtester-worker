@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.ifmo.fitp.labtesterworker.domain.report.SubmitReport;
 import ru.ifmo.fitp.labtesterworker.domain.task.TaskPipeline;
 
+import java.util.Date;
+
 @Service
 public class SubmitService {
 
@@ -13,9 +15,13 @@ public class SubmitService {
 
     public SubmitReport submit(TaskPipeline taskPipeline) {
 
-        runTaskPipe(taskPipeline);
+        Date date = new Date();
 
-        return collectOutput(taskPipeline);
+        runTaskPipe(taskPipeline);
+        SubmitReport report = collectOutput(taskPipeline);
+        report.setDate(date);
+
+        return report;
     }
 
     private void runTaskPipe(TaskPipeline taskPipeline) {

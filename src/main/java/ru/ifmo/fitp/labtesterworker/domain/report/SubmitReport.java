@@ -1,7 +1,11 @@
 package ru.ifmo.fitp.labtesterworker.domain.report;
 
+import java.util.Date;
+
 @SuppressWarnings("unused")
 public class SubmitReport {
+
+    private Date date;
 
     private String testStdout;
     private String testStderr;
@@ -44,5 +48,13 @@ public class SubmitReport {
 
     public void setTestStderr(String testStderr) {
         this.testStderr = testStderr;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
