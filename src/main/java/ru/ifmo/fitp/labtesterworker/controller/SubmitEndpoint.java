@@ -11,6 +11,8 @@ import ru.ifmo.fitp.labtesterworker.domain.task.TaskPipeline;
 import ru.ifmo.fitp.labtesterworker.domain.transformer.TaskTransformer;
 import ru.ifmo.fitp.labtesterworker.service.SubmitService;
 
+import java.io.UncheckedIOException;
+
 @RestController
 public class SubmitEndpoint {
 
@@ -29,10 +31,15 @@ public class SubmitEndpoint {
     public ResponseEntity<SubmitReport> submit(@RequestBody TasksDAO tasksDAO) {
 
         LOG.info("New submit request");
-
         TaskPipeline taskPipeline = taskTransformer.transform(tasksDAO.getTasks());
         SubmitReport submitReport = submitService.submit(taskPipeline);
 
         return new ResponseEntity<>(submitReport, HttpStatus.OK);
+    }
+
+    @ResponseStatus(value=HttpStatus.BAD_REQUEST, reason = "Failed to check solution")
+    @ExceptionHandler(UncheckedIOException.class)
+    public void badRequest() {
+
     }
 }

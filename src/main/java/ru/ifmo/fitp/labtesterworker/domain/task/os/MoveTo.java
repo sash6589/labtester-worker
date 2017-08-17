@@ -6,6 +6,7 @@ import ru.ifmo.fitp.labtesterworker.domain.task.AbstractTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 
 import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.*;
 
@@ -46,7 +47,8 @@ public class MoveTo extends AbstractTask {
 
             fillStorage(toDir);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage());
+            throw new UncheckedIOException(e);
         }
     }
 
