@@ -2,8 +2,7 @@ package ru.ifmo.fitp.labtesterworker.domain.task.git;
 
 import org.apache.log4j.Logger;
 import ru.ifmo.fitp.labtesterworker.dao.task.GitCloneDAO;
-import ru.ifmo.fitp.labtesterworker.domain.task.AbstractTask;
-import ru.ifmo.fitp.labtesterworker.util.ProcessConfiguration;
+import ru.ifmo.fitp.labtesterworker.domain.task.CommandTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,33 +13,24 @@ import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.ENVIRONMENT_DIR
 import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.REPOSITORY_DIR_NAME_STORAGE_KEY;
 import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.REPOSITORY_DIR_STORAGE_KEY;
 
-public class GitClone extends AbstractTask {
+public class GitClone extends CommandTask {
 
     private static final Logger LOG = Logger.getLogger(GitClone.class);
 
     private String gitUrl;
 
     public GitClone(GitCloneDAO dao) {
+        super("git clone " + dao.getGitUrl());
         this.gitUrl = dao.getGitUrl();
     }
 
     @Override
     public void perform() {
-
         LOG.info("Clone repository from " + gitUrl);
 
-        cloneRepository();
-        fillStorage();
-    }
+        processRunner.startProcess();
 
-    private void cloneRepository() {
-        try {
-            Process process = new ProcessConfiguration((File) storage.get(ENVIRONMENT_DIR_STORAGE_KEY),
-                    Arrays.asList("git", "clone", gitUrl)).startProcess();
-            process.waitFor();
-        } catch (InterruptedException | IOException e) {
-            e.printStackTrace();
-        }
+        fillStorage();
     }
 
     private void fillStorage() {
