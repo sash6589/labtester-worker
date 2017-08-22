@@ -36,15 +36,26 @@ public class TaskTransformer {
             taskPipeline.addTask(new CleanEnvironment());
         }
         if (taskDAO instanceof GitCloneSolutionDAO) {
-            taskPipeline.addTask(new GitClone((GitCloneSolutionDAO) taskDAO, SOLUTION_REPOSITORY_DIR_STORAGE_KEY,
+            taskPipeline.addTask(new GitClone((GitCloneSolutionDAO) taskDAO,
+                    SOLUTION_REPOSITORY_DIR_STORAGE_KEY,
                     SOLUTION_REPOSITORY_DIR_NAME_STORAGE_KEY));
         }
         if (taskDAO instanceof GitCloneTestsDAO) {
-            taskPipeline.addTask(new GitClone((GitCloneTestsDAO) taskDAO, TESTS_REPOSITORY_DIR_STORAGE_KEY,
+            taskPipeline.addTask(new GitClone((GitCloneTestsDAO) taskDAO,
+                    TESTS_REPOSITORY_DIR_STORAGE_KEY,
                     TESTS_REPOSITORY_DIR_NAME_STORAGE_KEY));
         }
-        if (taskDAO instanceof MoveToDAO) {
-            taskPipeline.addTask(new MoveTo());
+        if (taskDAO instanceof SolutionMoveToDAO) {
+            taskPipeline.addTask(new MoveTo(SOLUTION_REPOSITORY_DIR_STORAGE_KEY,
+                    EXECUTABLE_DIR_STORAGE_KEY,
+                    EXECUTABLE_DIR_NAME_STORAGE_KEY,
+                    "run"));
+        }
+        if (taskDAO instanceof TestsMoveToDAO) {
+            taskPipeline.addTask(new MoveTo(TESTS_REPOSITORY_DIR_STORAGE_KEY,
+                    TESTS_DIR_STORAGE_KEY,
+                    TESTS_DIR_NAME_STORAGE_KEY,
+                    "tests"));
         }
         if (taskDAO instanceof PrepareEnvironmentDAO) {
             taskPipeline.addTask(new PrepareEnvironment());

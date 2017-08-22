@@ -13,6 +13,9 @@ public class TaskUtils {
     public static final String EXECUTABLE_DIR_STORAGE_KEY = "run-dir";
     public static final String EXECUTABLE_DIR_NAME_STORAGE_KEY = "run-dir-name";
 
+    public static final String TESTS_DIR_STORAGE_KEY = "tests-dir";
+    public static final String TESTS_DIR_NAME_STORAGE_KEY = "tests-dir-name";
+
     public static final String TESTS_RUN_STDOUT_STORAGE_KEY = "tests-run-stdout";
     public static final String TESTS_RUN_STDERR_STORAGE_KEY = "tests-run-stderr";
 

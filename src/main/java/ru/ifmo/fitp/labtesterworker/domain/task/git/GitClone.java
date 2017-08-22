@@ -6,6 +6,8 @@ import ru.ifmo.fitp.labtesterworker.domain.task.CommandTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Optional;
 
 import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.ENVIRONMENT_DIR_STORAGE_KEY;
 
@@ -53,6 +55,10 @@ public class GitClone extends CommandTask {
             return envDir;
         }
 
-        return files[0];
+        Optional<File> optional = Arrays.stream(files)
+                .filter(file -> !("run".equals(file.getName())))
+                .findFirst();
+
+        return optional.orElse(envDir);
     }
 }
