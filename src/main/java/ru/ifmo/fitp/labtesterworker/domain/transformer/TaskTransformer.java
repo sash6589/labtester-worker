@@ -10,6 +10,8 @@ import ru.ifmo.fitp.labtesterworker.domain.task.os.MoveTo;
 import ru.ifmo.fitp.labtesterworker.domain.task.os.PrepareEnvironment;
 import ru.ifmo.fitp.labtesterworker.domain.task.test.RunTests;
 
+import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.*;
+
 
 @Component
 public class TaskTransformer {
@@ -33,8 +35,13 @@ public class TaskTransformer {
         if (taskDAO instanceof CleanEnvironmentDAO) {
             taskPipeline.addTask(new CleanEnvironment());
         }
-        if (taskDAO instanceof GitCloneDAO) {
-            taskPipeline.addTask(new GitClone((GitCloneDAO) taskDAO));
+        if (taskDAO instanceof GitCloneSolutionDAO) {
+            taskPipeline.addTask(new GitClone((GitCloneSolutionDAO) taskDAO, SOLUTION_REPOSITORY_DIR_STORAGE_KEY,
+                    SOLUTION_REPOSITORY_DIR_NAME_STORAGE_KEY));
+        }
+        if (taskDAO instanceof GitCloneTestsDAO) {
+            taskPipeline.addTask(new GitClone((GitCloneTestsDAO) taskDAO, TESTS_REPOSITORY_DIR_STORAGE_KEY,
+                    TESTS_REPOSITORY_DIR_NAME_STORAGE_KEY));
         }
         if (taskDAO instanceof MoveToDAO) {
             taskPipeline.addTask(new MoveTo());

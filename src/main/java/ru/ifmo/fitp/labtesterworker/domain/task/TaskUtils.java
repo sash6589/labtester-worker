@@ -4,8 +4,11 @@ public class TaskUtils {
     public static final String ENVIRONMENT_DIR_STORAGE_KEY = "environment-dir";
     public static final String ENVIRONMENT_DIR_NAME_STORAGE_KEY = "environment-dir-name";
 
-    public static final String REPOSITORY_DIR_STORAGE_KEY = "repository-dir";
-    public static final String REPOSITORY_DIR_NAME_STORAGE_KEY = "repository-dir-name";
+    public static final String SOLUTION_REPOSITORY_DIR_STORAGE_KEY = "solution-repository-dir";
+    public static final String SOLUTION_REPOSITORY_DIR_NAME_STORAGE_KEY = "solution-repository-dir-name";
+
+    public static final String TESTS_REPOSITORY_DIR_STORAGE_KEY = "tests-repository-dir";
+    public static final String TESTS_REPOSITORY_DIR_NAME_STORAGE_KEY = "tests-repository-dir-name";
 
     public static final String EXECUTABLE_DIR_STORAGE_KEY = "run-dir";
     public static final String EXECUTABLE_DIR_NAME_STORAGE_KEY = "run-dir-name";

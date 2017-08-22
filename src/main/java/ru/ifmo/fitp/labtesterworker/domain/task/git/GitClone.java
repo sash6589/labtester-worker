@@ -6,22 +6,22 @@ import ru.ifmo.fitp.labtesterworker.domain.task.CommandTask;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Optional;
 
 import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.ENVIRONMENT_DIR_STORAGE_KEY;
-import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.REPOSITORY_DIR_NAME_STORAGE_KEY;
-import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.REPOSITORY_DIR_STORAGE_KEY;
 
 public class GitClone extends CommandTask {
 
     private static final Logger LOG = Logger.getLogger(GitClone.class);
 
     private String gitUrl;
+    private String repositoryDirStorageKey;
+    private String repositoryDirNameStorageKey;
 
-    public GitClone(GitCloneDAO dao) {
+    public GitClone(GitCloneDAO dao, String repositoryDirStorageKey, String repositoryDirNameStorageKey) {
         super("git clone " + dao.getGitUrl());
         this.gitUrl = dao.getGitUrl();
+        this.repositoryDirStorageKey = repositoryDirStorageKey;
+        this.repositoryDirNameStorageKey = repositoryDirNameStorageKey;
     }
 
     @Override
@@ -38,8 +38,8 @@ public class GitClone extends CommandTask {
 
         try {
             LOG.info("Repository directory is " + dir.getCanonicalPath());
-            storage.put(REPOSITORY_DIR_STORAGE_KEY, dir);
-            storage.put(REPOSITORY_DIR_NAME_STORAGE_KEY, dir.getCanonicalPath());
+            storage.put(repositoryDirStorageKey, dir);
+            storage.put(repositoryDirNameStorageKey, dir.getCanonicalPath());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,10 +52,7 @@ public class GitClone extends CommandTask {
             LOG.error("Environment directory is empty");
             return envDir;
         }
-        Optional<File> optional = Arrays.stream(files)
-                .filter(file -> !("test".equals(file.getName())))
-                .findFirst();
 
-        return optional.orElse(envDir);
+        return files[0];
     }
 }

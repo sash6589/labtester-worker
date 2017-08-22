@@ -20,7 +20,7 @@ public class MoveTo extends AbstractTask {
     private String toPath;
 
     public MoveTo() {
-        this.fromKey = REPOSITORY_DIR_STORAGE_KEY;
+        this.fromKey = SOLUTION_REPOSITORY_DIR_STORAGE_KEY;
         this.toKey = EXECUTABLE_DIR_STORAGE_KEY;
         this.toNameKey = EXECUTABLE_DIR_NAME_STORAGE_KEY;
         this.toPath = "run";
