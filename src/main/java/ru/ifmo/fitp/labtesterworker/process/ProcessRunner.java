@@ -1,4 +1,4 @@
-package ru.ifmo.fitp.labtesterworker.util;
+package ru.ifmo.fitp.labtesterworker.process;
 
 import org.apache.log4j.Logger;
 

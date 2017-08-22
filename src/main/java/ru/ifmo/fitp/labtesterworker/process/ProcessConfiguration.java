@@ -1,4 +1,4 @@
-package ru.ifmo.fitp.labtesterworker.util;
+package ru.ifmo.fitp.labtesterworker.process;
 
 import java.io.File;
 import java.io.IOException;

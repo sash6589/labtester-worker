@@ -1,9 +1,8 @@
 package ru.ifmo.fitp.labtesterworker.domain.task;
 
-import ru.ifmo.fitp.labtesterworker.util.ProcessRunner;
+import ru.ifmo.fitp.labtesterworker.process.ProcessRunner;
 
 import java.util.Arrays;
-import java.util.List;
 
 public abstract class CommandTask extends AbstractTask {
 

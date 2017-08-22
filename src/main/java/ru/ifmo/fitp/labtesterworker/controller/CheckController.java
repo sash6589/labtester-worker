@@ -9,30 +9,30 @@ import ru.ifmo.fitp.labtesterworker.dao.task.TasksDAO;
 import ru.ifmo.fitp.labtesterworker.domain.report.SubmitReport;
 import ru.ifmo.fitp.labtesterworker.domain.task.TaskPipeline;
 import ru.ifmo.fitp.labtesterworker.domain.transformer.TaskTransformer;
-import ru.ifmo.fitp.labtesterworker.service.SubmitService;
+import ru.ifmo.fitp.labtesterworker.service.CheckService;
 
 import java.io.UncheckedIOException;
 
 @RestController
-public class SubmitEndpoint {
+public class CheckController {
 
-    private static final Logger LOG = Logger.getLogger(SubmitEndpoint.class);
+    private static final Logger LOG = Logger.getLogger(CheckController.class);
 
-    private final SubmitService submitService;
+    private final CheckService checkService;
     private final TaskTransformer taskTransformer;
 
     @Autowired
-    public SubmitEndpoint(SubmitService submitService, TaskTransformer taskTransformer) {
-        this.submitService = submitService;
+    public CheckController(CheckService checkService, TaskTransformer taskTransformer) {
+        this.checkService = checkService;
         this.taskTransformer = taskTransformer;
     }
 
-    @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public ResponseEntity<SubmitReport> submit(@RequestBody TasksDAO tasksDAO) {
+    @RequestMapping(value = "/check", method = RequestMethod.POST)
+    public ResponseEntity<SubmitReport> check(@RequestBody TasksDAO tasksDAO) {
 
         LOG.info("New submit request");
         TaskPipeline taskPipeline = taskTransformer.transform(tasksDAO.getTasks());
-        SubmitReport submitReport = submitService.submit(taskPipeline);
+        SubmitReport submitReport = checkService.submit(taskPipeline);
 
         return new ResponseEntity<>(submitReport, HttpStatus.OK);
     }

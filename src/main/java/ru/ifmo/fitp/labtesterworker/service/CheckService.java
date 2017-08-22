@@ -8,9 +8,9 @@ import ru.ifmo.fitp.labtesterworker.domain.task.TaskPipeline;
 import java.util.Date;
 
 @Service
-public class SubmitService {
+public class CheckService {
 
-    private static final Logger LOG = Logger.getLogger(SubmitService.class);
+    private static final Logger LOG = Logger.getLogger(CheckService.class);
 
 
     public SubmitReport submit(TaskPipeline taskPipeline) {

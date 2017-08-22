@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = LabtesterWorkerMain.class)
 @WebAppConfiguration
-public class SubmitEndpointTest {
+public class CheckControllerTest {
 
 //    private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
 //            MediaType.APPLICATION_JSON.getSubtype(),
