@@ -20,7 +20,7 @@ public class ProcessConfiguration {
         this.processBuilder.directory(directory);
     }
 
-    public Process startProcess() throws IOException {
-        return processBuilder.start();
+    public Process startProcess(File dir) throws IOException {
+        return processBuilder.directory(dir).start();
     }
 }

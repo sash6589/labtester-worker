@@ -19,6 +19,14 @@ public class TaskPipeline {
         this.tasks = new ArrayList<>();
     }
 
+    public void setStorage(Map<String, Object> storage) {
+        this.storage = storage;
+    }
+
+    public Map<String, Object> getStorage() {
+        return storage;
+    }
+
     public void addTask(AbstractTask task) {
         task.setStorage(storage);
         tasks.add(task);

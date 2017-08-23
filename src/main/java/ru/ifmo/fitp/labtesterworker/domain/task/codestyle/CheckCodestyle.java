@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 import ru.ifmo.fitp.labtesterworker.dao.task.CheckCodestyleDAO;
 import ru.ifmo.fitp.labtesterworker.domain.task.CommandTask;
 
+import java.io.File;
+
 import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.*;
 
 public class CheckCodestyle extends CommandTask {
@@ -18,7 +20,7 @@ public class CheckCodestyle extends CommandTask {
     public void perform() {
         LOG.info("Check codestyle");
 
-        processRunner.startProcess();
+        processRunner.startProcess((File) storage.get(WORKING_DIR_STORAGE_KEY));
 
         fillStorage();
     }

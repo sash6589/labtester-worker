@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 
-import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.ENVIRONMENT_DIR_STORAGE_KEY;
+import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.WORKING_DIR_STORAGE_KEY;
 
 public class GitClone extends CommandTask {
 
@@ -30,7 +30,7 @@ public class GitClone extends CommandTask {
     public void perform() {
         LOG.info("Clone repository from " + gitUrl);
 
-        processRunner.startProcess();
+        processRunner.startProcess((File) storage.get(WORKING_DIR_STORAGE_KEY));
 
         fillStorage();
     }
@@ -48,7 +48,7 @@ public class GitClone extends CommandTask {
     }
 
     private File getRepositoryDir() {
-        File envDir = (File) storage.get(ENVIRONMENT_DIR_STORAGE_KEY);
+        File envDir = (File) storage.get(WORKING_DIR_STORAGE_KEY);
         File[] files = envDir.listFiles();
         if (files == null) {
             LOG.error("Environment directory is empty");

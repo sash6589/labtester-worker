@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.ifmo.fitp.labtesterworker.dao.task.TasksDAO;
 import ru.ifmo.fitp.labtesterworker.domain.report.SubmitReport;
 import ru.ifmo.fitp.labtesterworker.domain.task.TaskPipeline;
+import ru.ifmo.fitp.labtesterworker.domain.task.os.CleanEnvironment;
 import ru.ifmo.fitp.labtesterworker.domain.transformer.TaskTransformer;
 import ru.ifmo.fitp.labtesterworker.service.CheckService;
 
@@ -20,6 +21,7 @@ public class CheckController {
 
     private final CheckService checkService;
     private final TaskTransformer taskTransformer;
+    private TaskPipeline taskPipeline;
 
     @Autowired
     public CheckController(CheckService checkService, TaskTransformer taskTransformer) {
@@ -29,9 +31,9 @@ public class CheckController {
 
     @RequestMapping(value = "/check", method = RequestMethod.POST)
     public ResponseEntity<SubmitReport> check(@RequestBody TasksDAO tasksDAO) {
-
         LOG.info("New submit request");
-        TaskPipeline taskPipeline = taskTransformer.transform(tasksDAO.getTasks());
+
+        taskPipeline = taskTransformer.transform(tasksDAO.getTasks());
         SubmitReport submitReport = checkService.submit(taskPipeline);
 
         return new ResponseEntity<>(submitReport, HttpStatus.OK);
@@ -40,6 +42,6 @@ public class CheckController {
     @ResponseStatus(value=HttpStatus.BAD_REQUEST, reason = "Failed to check solution")
     @ExceptionHandler(UncheckedIOException.class)
     public void badRequest() {
-
+        new CleanEnvironment().setStorage(taskPipeline.getStorage()).perform();
     }
 }

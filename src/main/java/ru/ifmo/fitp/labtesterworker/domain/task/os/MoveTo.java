@@ -38,7 +38,7 @@ public class MoveTo extends AbstractTask {
 
         try {
             File fromDir = (File) storage.get(fromKey);
-            File toDir = new File(((File) storage.get(ENVIRONMENT_DIR_STORAGE_KEY)).getCanonicalPath() +
+            File toDir = new File(((File) storage.get(WORKING_DIR_STORAGE_KEY)).getCanonicalPath() +
                     File.separator + toPath);
 
             LOG.info(String.format("Move files from %s to %s", fromDir.getCanonicalPath(), toDir.getCanonicalPath()));

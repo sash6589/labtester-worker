@@ -2,10 +2,7 @@ package ru.ifmo.fitp.labtesterworker.process;
 
 import org.apache.log4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.List;
 
 public class ProcessRunner {
@@ -31,9 +28,9 @@ public class ProcessRunner {
         return stderr;
     }
 
-    public void startProcess() {
+    public void startProcess(File dir) {
         try {
-            Process process = processConfiguration.startProcess();
+            Process process = processConfiguration.startProcess(dir);
 
             stdout = captureOutput(process.getInputStream());
             stderr = captureOutput(process.getErrorStream());
