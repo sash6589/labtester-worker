@@ -13,7 +13,7 @@ public class CheckCodestyle extends CommandTask {
     private static Logger LOG = Logger.getLogger(CheckCodestyle.class);
 
     public CheckCodestyle(CheckCodestyleDAO dao) {
-        super(dao.getCommand());
+        super(dao);
     }
 
     @Override

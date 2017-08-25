@@ -1,5 +1,6 @@
 package ru.ifmo.fitp.labtesterworker.domain.task.os;
 
+import org.apache.commons.io.FileExistsException;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import ru.ifmo.fitp.labtesterworker.domain.task.AbstractTask;
@@ -36,24 +37,32 @@ public class MoveTo extends AbstractTask {
     @Override
     public void perform() {
 
+        File toDir = null;
         try {
             File fromDir = (File) storage.get(fromKey);
-            File toDir = new File(((File) storage.get(WORKING_DIR_STORAGE_KEY)).getCanonicalPath() +
+            toDir = new File(((File) storage.get(WORKING_DIR_STORAGE_KEY)).getCanonicalPath() +
                     File.separator + toPath);
 
             LOG.info(String.format("Move files from %s to %s", fromDir.getCanonicalPath(), toDir.getCanonicalPath()));
 
             FileUtils.moveDirectory(fromDir, toDir);
-
+        } catch (FileExistsException e) {
+            LOG.info("Nothing to move: " + e.getMessage());
+        } catch (IOException e) {
+            LOG.error(e.getMessage());
+            throw new UncheckedIOException(e);
+        } finally {
             fillStorage(toDir);
+        }
+    }
+
+    private void fillStorage(File toDir) {
+        try {
+            storage.put(toKey, toDir);
+            storage.put(toNameKey, toDir.getCanonicalPath());
         } catch (IOException e) {
             LOG.error(e.getMessage());
             throw new UncheckedIOException(e);
         }
-    }
-
-    private void fillStorage(File toDir) throws IOException {
-        storage.put(toKey, toDir);
-        storage.put(toNameKey, toDir.getCanonicalPath());
     }
 }

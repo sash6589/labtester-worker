@@ -15,7 +15,7 @@ public class RunTests extends CommandTask {
     private static Logger LOG = Logger.getLogger(RunTests.class);
 
     public RunTests(RunTestsDAO dao) {
-        super(dao.getCommand());
+        super(dao);
     }
 
     @Override

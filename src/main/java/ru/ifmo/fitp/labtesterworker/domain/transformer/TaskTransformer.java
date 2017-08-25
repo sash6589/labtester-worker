@@ -8,6 +8,7 @@ import ru.ifmo.fitp.labtesterworker.domain.task.git.GitClone;
 import ru.ifmo.fitp.labtesterworker.domain.task.os.CleanEnvironment;
 import ru.ifmo.fitp.labtesterworker.domain.task.os.MoveTo;
 import ru.ifmo.fitp.labtesterworker.domain.task.os.PrepareEnvironment;
+import ru.ifmo.fitp.labtesterworker.domain.task.test.RunFileTests;
 import ru.ifmo.fitp.labtesterworker.domain.task.test.RunTests;
 
 import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.*;
@@ -45,6 +46,11 @@ public class TaskTransformer {
                     TESTS_REPOSITORY_DIR_STORAGE_KEY,
                     TESTS_REPOSITORY_DIR_NAME_STORAGE_KEY));
         }
+        if (taskDAO instanceof GitCloneFileTestsDAO) {
+            taskPipeline.addTask(new GitClone((GitCloneFileTestsDAO) taskDAO,
+                    FILE_TESTS_REPOSITORY_DIR_STORAGE_KEY,
+                    FILE_TESTS_REPOSITORY_DIR_NAME_STORAGE_KEY));
+        }
         if (taskDAO instanceof SolutionMoveToDAO) {
             taskPipeline.addTask(new MoveTo(SOLUTION_REPOSITORY_DIR_STORAGE_KEY,
                     EXECUTABLE_DIR_STORAGE_KEY,
@@ -57,11 +63,20 @@ public class TaskTransformer {
                     TESTS_DIR_NAME_STORAGE_KEY,
                     "tests"));
         }
+        if (taskDAO instanceof FileTestsMoveToDAO) {
+            taskPipeline.addTask(new MoveTo(FILE_TESTS_REPOSITORY_DIR_STORAGE_KEY,
+                    FILE_TESTS_DIR_STORAGE_KEY,
+                    FILE_TESTS_DIR_NAME_STORAGE_KEY,
+                    "file-tests"));
+        }
         if (taskDAO instanceof PrepareEnvironmentDAO) {
             taskPipeline.addTask(new PrepareEnvironment());
         }
         if (taskDAO instanceof RunTestsDAO) {
             taskPipeline.addTask(new RunTests((RunTestsDAO) taskDAO));
+        }
+        if (taskDAO instanceof RunFileTestsDAO) {
+            taskPipeline.addTask(new RunFileTests((RunFileTestsDAO) taskDAO));
         }
     }
 }

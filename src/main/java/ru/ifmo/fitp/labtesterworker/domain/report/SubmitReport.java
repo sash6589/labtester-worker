@@ -9,8 +9,11 @@ public class SubmitReport {
 
     private String testStdout;
     private String testStderr;
+
     private String codestyleStdout;
     private String codestyleStderr;
+
+    private String fileTestsResult;
 
     public SubmitReport() {
 
@@ -24,7 +27,13 @@ public class SubmitReport {
         return testStderr;
     }
 
+    public String getFileTestsResult() {
+        return fileTestsResult;
+    }
 
+    public void setFileTestsResult(String fileTestsResult) {
+        this.fileTestsResult = fileTestsResult;
+    }
 
     public String getCodestyleStdout() {
         return codestyleStdout;
