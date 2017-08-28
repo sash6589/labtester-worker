@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ProcessRunner {
 
@@ -28,22 +29,38 @@ public class ProcessRunner {
         return stderr;
     }
 
-    public void startProcess(File dir) {
+    public boolean startProcess(File dir, long timeout) {
+        boolean result = true;
+
         try {
             Process process = processConfiguration.startProcess(dir);
 
-            stdout = captureOutput(process.getInputStream());
-            stderr = captureOutput(process.getErrorStream());
+            result = process.waitFor(timeout, TimeUnit.SECONDS);
 
-            process.waitFor();
+            if (result) {
+                int exitValue = process.exitValue();
+                LOG.info(String.format("Command '%s' finished with exit code %s", command, exitValue));
 
-            int exitValue = process.exitValue();
-            String message = "Command '" + command + "' finished with exit code " + exitValue;
-            LOG.info(message);
+                stdout = captureOutput(process.getInputStream());
+                stderr = captureOutput(process.getErrorStream());
+            } else {
+                LOG.info(String.format("Command '%s' terminated due to timeout", command));
+                process.destroyForcibly();
+            }
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+
+        return result;
+    }
+
+    public void startProcess(File dir) {
+        startProcess(dir, 100500);
+    }
+
+    public boolean startProcessDefaultTimeout(File dir) {
+        return startProcess(dir, 2);
     }
 
     private String captureOutput(InputStream inputStream) {

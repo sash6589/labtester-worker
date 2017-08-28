@@ -44,37 +44,52 @@ public class RunFileTests extends CommandTask {
         while (it.hasNext()) {
             File answer = it.next();
             File input = new File(dir, FilenameUtils.removeExtension(answer.getName()));
+            String name = input.getName();
             try {
-                runTest(input, answer);
+                runTest(name, input, answer);
             } catch (IOException e) {
                 LOG.info(e.getMessage());
-                ++failed;
+                incFailed(name);
             }
         }
     }
 
-    private void runTest(File input, File answer) throws IOException {
+    private void runTest(String name, File input, File answer) throws IOException {
         File runDir = (File) storage.get(EXECUTABLE_DIR_STORAGE_KEY);
 
         File destSrc = new File(runDir, "input.txt");
         FileUtils.copyFile(input, destSrc);
 
-        processRunner.startProcess((File) storage.get(EXECUTABLE_DIR_STORAGE_KEY));
+        boolean result = processRunner.startProcessDefaultTimeout((File) storage.get(EXECUTABLE_DIR_STORAGE_KEY));
+        if (!result) {
+            incFailed(name);
+            return;
+        }
 
         File output = new File(runDir, "output.txt");
-        checkOutput(output, answer);
+        checkOutput(name, output, answer);
     }
 
-    private void checkOutput(File output, File answer) throws IOException {
+    private void checkOutput(String name, File output, File answer) throws IOException {
         if (!output.exists()) {
-            ++failed;
+            incFailed(name);
             return;
         }
 
         if (FileUtils.contentEqualsIgnoreEOL(output, answer, null)) {
-            ++passed;
+            incPassed(name);
         } else {
-            ++failed;
+            incFailed(name);
         }
+    }
+
+    private void incFailed(String name) {
+        LOG.info("Test " + name + " failed");
+        ++failed;
+    }
+
+    private void incPassed(String name) {
+        LOG.info("Test " + name + " passed");
+        ++passed;
     }
 }
