@@ -8,6 +8,7 @@ import ru.ifmo.fitp.labtesterworker.domain.task.git.GitClone;
 import ru.ifmo.fitp.labtesterworker.domain.task.os.CleanEnvironment;
 import ru.ifmo.fitp.labtesterworker.domain.task.os.MoveTo;
 import ru.ifmo.fitp.labtesterworker.domain.task.os.PrepareEnvironment;
+import ru.ifmo.fitp.labtesterworker.domain.task.os.SaveSolution;
 import ru.ifmo.fitp.labtesterworker.domain.task.test.RunFileTests;
 import ru.ifmo.fitp.labtesterworker.domain.task.test.RunTests;
 
@@ -77,6 +78,9 @@ public class TaskTransformer {
         }
         if (taskDAO instanceof RunFileTestsDAO) {
             taskPipeline.addTask(new RunFileTests((RunFileTestsDAO) taskDAO));
+        }
+        if (taskDAO instanceof SaveSolutionDAO) {
+            taskPipeline.addTask(new SaveSolution((SaveSolutionDAO) taskDAO));
         }
     }
 }
