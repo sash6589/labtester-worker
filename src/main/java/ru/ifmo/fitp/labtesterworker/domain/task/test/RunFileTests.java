@@ -58,7 +58,7 @@ public class RunFileTests extends CommandTask {
         File destSrc = new File(runDir, "input.txt");
         FileUtils.copyFile(input, destSrc);
 
-        boolean result = processRunner.startProcessDefaultTimeout((File) storage.get(WORKING_DIR_STORAGE_KEY));
+        boolean result = processRunner.startProcessDefaultTimeout((File) storage.get(EXECUTABLE_DIR_STORAGE_KEY));
         if (!result) {
             incFailed(name);
             return;
