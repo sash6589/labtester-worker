@@ -10,9 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
-import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.EXECUTABLE_DIR_STORAGE_KEY;
-import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.FILE_TESTS_DIR_STORAGE_KEY;
-import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.FILE_TESTS_RESULT_STORAGE_KEY;
+import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.*;
 
 public class RunFileTests extends CommandTask {
 
@@ -60,7 +58,7 @@ public class RunFileTests extends CommandTask {
         File destSrc = new File(runDir, "input.txt");
         FileUtils.copyFile(input, destSrc);
 
-        boolean result = processRunner.startProcessDefaultTimeout((File) storage.get(EXECUTABLE_DIR_STORAGE_KEY));
+        boolean result = processRunner.startProcessDefaultTimeout((File) storage.get(WORKING_DIR_STORAGE_KEY));
         if (!result) {
             incFailed(name);
             return;
