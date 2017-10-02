@@ -43,6 +43,11 @@ public class ProcessRunner {
 
                 stdout = captureOutput(process.getInputStream());
                 stderr = captureOutput(process.getErrorStream());
+
+                if (exitValue != 0) {
+                    LOG.info(String.format("Process stdout is '%s'", stdout));
+                    LOG.info(String.format("Process stderr is '%s'", stderr));
+                }
             } else {
                 LOG.info(String.format("Command '%s' terminated due to timeout", command));
                 process.destroyForcibly();
