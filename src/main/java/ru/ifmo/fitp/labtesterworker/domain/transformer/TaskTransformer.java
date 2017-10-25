@@ -2,6 +2,13 @@ package ru.ifmo.fitp.labtesterworker.domain.transformer;
 
 import org.springframework.stereotype.Component;
 import ru.ifmo.fitp.labtesterworker.dao.task.*;
+import ru.ifmo.fitp.labtesterworker.dao.task.codestyle.CheckCodestyleDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.git.GitCloneFileTestsDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.git.GitCloneSolutionDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.git.GitCloneTestsDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.os.*;
+import ru.ifmo.fitp.labtesterworker.dao.task.test.RunFileTestsDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.test.RunTestsDAO;
 import ru.ifmo.fitp.labtesterworker.domain.task.TaskPipeline;
 import ru.ifmo.fitp.labtesterworker.domain.task.codestyle.CheckCodestyle;
 import ru.ifmo.fitp.labtesterworker.domain.task.git.GitClone;

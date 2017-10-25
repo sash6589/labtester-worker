@@ -3,7 +3,7 @@ package ru.ifmo.fitp.labtesterworker.domain.task.test;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
-import ru.ifmo.fitp.labtesterworker.dao.task.RunFileTestsDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.test.RunFileTestsDAO;
 import ru.ifmo.fitp.labtesterworker.domain.task.CommandTask;
 
 import java.io.File;

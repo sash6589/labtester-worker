@@ -1,7 +1,7 @@
 package ru.ifmo.fitp.labtesterworker.domain.task.test;
 
 import org.apache.log4j.Logger;
-import ru.ifmo.fitp.labtesterworker.dao.task.RunTestsDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.test.RunTestsDAO;
 import ru.ifmo.fitp.labtesterworker.domain.task.CommandTask;
 
 import java.io.File;

@@ -1,7 +1,7 @@
 package ru.ifmo.fitp.labtesterworker.domain.task.git;
 
 import org.apache.log4j.Logger;
-import ru.ifmo.fitp.labtesterworker.dao.task.GitCloneDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.git.GitCloneDAO;
 import ru.ifmo.fitp.labtesterworker.domain.task.CommandTask;
 
 import java.io.File;

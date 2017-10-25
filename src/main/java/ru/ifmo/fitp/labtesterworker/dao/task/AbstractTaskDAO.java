@@ -2,6 +2,14 @@ package ru.ifmo.fitp.labtesterworker.dao.task;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import ru.ifmo.fitp.labtesterworker.dao.task.codestyle.CheckCodestyleDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.git.GitCloneDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.git.GitCloneFileTestsDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.git.GitCloneSolutionDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.git.GitCloneTestsDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.os.*;
+import ru.ifmo.fitp.labtesterworker.dao.task.test.RunFileTestsDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.test.RunTestsDAO;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({

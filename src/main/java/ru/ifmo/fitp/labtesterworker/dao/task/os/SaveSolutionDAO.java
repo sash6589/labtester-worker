@@ -1,4 +1,6 @@
-package ru.ifmo.fitp.labtesterworker.dao.task;
+package ru.ifmo.fitp.labtesterworker.dao.task.os;
+
+import ru.ifmo.fitp.labtesterworker.dao.task.AbstractTaskDAO;
 
 public class SaveSolutionDAO extends AbstractTaskDAO {
     private String program;

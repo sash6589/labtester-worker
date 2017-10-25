@@ -2,7 +2,7 @@ package ru.ifmo.fitp.labtesterworker.domain.task.os;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import ru.ifmo.fitp.labtesterworker.dao.task.SaveSolutionDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.os.SaveSolutionDAO;
 import ru.ifmo.fitp.labtesterworker.domain.task.AbstractTask;
 
 import java.io.File;
