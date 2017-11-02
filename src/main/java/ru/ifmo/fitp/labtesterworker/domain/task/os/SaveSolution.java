@@ -18,7 +18,7 @@ public class SaveSolution extends AbstractTask {
     private static final Logger LOG = Logger.getLogger(SaveSolution.class);
 
     private static final String DIR_NAME = "program";
-    private static final String FILE_NAME = "main.py";
+    private static final String FILE_NAME = "main.cpp";
 
     private String program;
 

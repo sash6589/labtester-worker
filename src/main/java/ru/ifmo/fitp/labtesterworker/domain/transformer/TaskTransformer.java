@@ -6,12 +6,15 @@ import ru.ifmo.fitp.labtesterworker.dao.task.codestyle.CheckCodestyleDAO;
 import ru.ifmo.fitp.labtesterworker.dao.task.git.GitCloneFileTestsDAO;
 import ru.ifmo.fitp.labtesterworker.dao.task.git.GitCloneSolutionDAO;
 import ru.ifmo.fitp.labtesterworker.dao.task.git.GitCloneTestsDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.language.cpp.CompileCppDAO;
 import ru.ifmo.fitp.labtesterworker.dao.task.os.*;
 import ru.ifmo.fitp.labtesterworker.dao.task.test.RunFileTestsDAO;
 import ru.ifmo.fitp.labtesterworker.dao.task.test.RunTestsDAO;
+import ru.ifmo.fitp.labtesterworker.domain.task.AbstractTask;
 import ru.ifmo.fitp.labtesterworker.domain.task.TaskPipeline;
 import ru.ifmo.fitp.labtesterworker.domain.task.codestyle.CheckCodestyle;
 import ru.ifmo.fitp.labtesterworker.domain.task.git.GitClone;
+import ru.ifmo.fitp.labtesterworker.domain.task.language.cpp.CompileCpp;
 import ru.ifmo.fitp.labtesterworker.domain.task.os.CleanEnvironment;
 import ru.ifmo.fitp.labtesterworker.domain.task.os.MoveTo;
 import ru.ifmo.fitp.labtesterworker.domain.task.os.PrepareEnvironment;
@@ -31,63 +34,58 @@ public class TaskTransformer {
         taskPipeline = new TaskPipeline();
 
         for (AbstractTaskDAO taskDAO: tasksDAO) {
-            add(taskDAO);
+            taskPipeline.addTask(parseTask(taskDAO));
         }
 
         return taskPipeline;
     }
 
-    private void add(AbstractTaskDAO taskDAO) {
+    private AbstractTask parseTask(AbstractTaskDAO taskDAO) {
         if (taskDAO instanceof CheckCodestyleDAO) {
-            taskPipeline.addTask(new CheckCodestyle((CheckCodestyleDAO) taskDAO));
+            return new CheckCodestyle((CheckCodestyleDAO) taskDAO);
         }
         if (taskDAO instanceof CleanEnvironmentDAO) {
-            taskPipeline.addTask(new CleanEnvironment());
+            return new CleanEnvironment();
         }
         if (taskDAO instanceof GitCloneSolutionDAO) {
-            taskPipeline.addTask(new GitClone((GitCloneSolutionDAO) taskDAO,
-                    SOLUTION_REPOSITORY_DIR_STORAGE_KEY,
-                    SOLUTION_REPOSITORY_DIR_NAME_STORAGE_KEY));
+            return new GitClone((GitCloneSolutionDAO) taskDAO, SOLUTION_REPOSITORY_DIR_STORAGE_KEY,
+                    SOLUTION_REPOSITORY_DIR_NAME_STORAGE_KEY);
         }
         if (taskDAO instanceof GitCloneTestsDAO) {
-            taskPipeline.addTask(new GitClone((GitCloneTestsDAO) taskDAO,
-                    TESTS_REPOSITORY_DIR_STORAGE_KEY,
-                    TESTS_REPOSITORY_DIR_NAME_STORAGE_KEY));
+            return new GitClone((GitCloneTestsDAO) taskDAO, TESTS_REPOSITORY_DIR_STORAGE_KEY,
+                    TESTS_REPOSITORY_DIR_NAME_STORAGE_KEY);
         }
         if (taskDAO instanceof GitCloneFileTestsDAO) {
-            taskPipeline.addTask(new GitClone((GitCloneFileTestsDAO) taskDAO,
-                    FILE_TESTS_REPOSITORY_DIR_STORAGE_KEY,
-                    FILE_TESTS_REPOSITORY_DIR_NAME_STORAGE_KEY));
+            return new GitClone((GitCloneFileTestsDAO) taskDAO, FILE_TESTS_REPOSITORY_DIR_STORAGE_KEY,
+                    FILE_TESTS_REPOSITORY_DIR_NAME_STORAGE_KEY);
         }
         if (taskDAO instanceof SolutionMoveToDAO) {
-            taskPipeline.addTask(new MoveTo(SOLUTION_REPOSITORY_DIR_STORAGE_KEY,
-                    EXECUTABLE_DIR_STORAGE_KEY,
-                    EXECUTABLE_DIR_NAME_STORAGE_KEY,
-                    "run"));
+            return new MoveTo(SOLUTION_REPOSITORY_DIR_STORAGE_KEY, EXECUTABLE_DIR_STORAGE_KEY,
+                    EXECUTABLE_DIR_NAME_STORAGE_KEY, "run");
         }
         if (taskDAO instanceof TestsMoveToDAO) {
-            taskPipeline.addTask(new MoveTo(TESTS_REPOSITORY_DIR_STORAGE_KEY,
-                    TESTS_DIR_STORAGE_KEY,
-                    TESTS_DIR_NAME_STORAGE_KEY,
-                    "tests"));
+            return new MoveTo(TESTS_REPOSITORY_DIR_STORAGE_KEY, TESTS_DIR_STORAGE_KEY,
+                    TESTS_DIR_NAME_STORAGE_KEY, "tests");
         }
         if (taskDAO instanceof FileTestsMoveToDAO) {
-            taskPipeline.addTask(new MoveTo(FILE_TESTS_REPOSITORY_DIR_STORAGE_KEY,
-                    FILE_TESTS_DIR_STORAGE_KEY,
-                    FILE_TESTS_DIR_NAME_STORAGE_KEY,
-                    "file-tests"));
+            return new MoveTo(FILE_TESTS_REPOSITORY_DIR_STORAGE_KEY, FILE_TESTS_DIR_STORAGE_KEY,
+                    FILE_TESTS_DIR_NAME_STORAGE_KEY, "file-tests");
         }
         if (taskDAO instanceof PrepareEnvironmentDAO) {
-            taskPipeline.addTask(new PrepareEnvironment());
+            return new PrepareEnvironment();
         }
         if (taskDAO instanceof RunTestsDAO) {
-            taskPipeline.addTask(new RunTests((RunTestsDAO) taskDAO));
+            return new RunTests((RunTestsDAO) taskDAO);
         }
         if (taskDAO instanceof RunFileTestsDAO) {
-            taskPipeline.addTask(new RunFileTests((RunFileTestsDAO) taskDAO));
+            return new RunFileTests((RunFileTestsDAO) taskDAO);
         }
         if (taskDAO instanceof SaveSolutionDAO) {
-            taskPipeline.addTask(new SaveSolution((SaveSolutionDAO) taskDAO));
+            return new SaveSolution((SaveSolutionDAO) taskDAO);
         }
+        if (taskDAO instanceof CompileCppDAO) {
+            return new CompileCpp((CompileCppDAO) taskDAO);
+        }
+        throw new IllegalArgumentException("Unknown type of task");
     }
 }
