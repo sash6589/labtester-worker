@@ -6,7 +6,7 @@ import ru.ifmo.fitp.labtesterworker.dao.task.codestyle.CheckCodestyleDAO;
 import ru.ifmo.fitp.labtesterworker.dao.task.git.GitCloneFileTestsDAO;
 import ru.ifmo.fitp.labtesterworker.dao.task.git.GitCloneSolutionDAO;
 import ru.ifmo.fitp.labtesterworker.dao.task.git.GitCloneTestsDAO;
-import ru.ifmo.fitp.labtesterworker.dao.task.language.cpp.CompileCppDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.language.cpp.BuildCppDAO;
 import ru.ifmo.fitp.labtesterworker.dao.task.os.*;
 import ru.ifmo.fitp.labtesterworker.dao.task.test.RunFileTestsDAO;
 import ru.ifmo.fitp.labtesterworker.dao.task.test.RunTestsDAO;
@@ -14,7 +14,7 @@ import ru.ifmo.fitp.labtesterworker.domain.task.AbstractTask;
 import ru.ifmo.fitp.labtesterworker.domain.task.TaskPipeline;
 import ru.ifmo.fitp.labtesterworker.domain.task.codestyle.CheckCodestyle;
 import ru.ifmo.fitp.labtesterworker.domain.task.git.GitClone;
-import ru.ifmo.fitp.labtesterworker.domain.task.language.cpp.CompileCpp;
+import ru.ifmo.fitp.labtesterworker.domain.task.language.cpp.BuildCpp;
 import ru.ifmo.fitp.labtesterworker.domain.task.os.CleanEnvironment;
 import ru.ifmo.fitp.labtesterworker.domain.task.os.MoveTo;
 import ru.ifmo.fitp.labtesterworker.domain.task.os.PrepareEnvironment;
@@ -83,8 +83,8 @@ public class TaskTransformer {
         if (taskDAO instanceof SaveSolutionDAO) {
             return new SaveSolution((SaveSolutionDAO) taskDAO);
         }
-        if (taskDAO instanceof CompileCppDAO) {
-            return new CompileCpp((CompileCppDAO) taskDAO);
+        if (taskDAO instanceof BuildCppDAO) {
+            return new BuildCpp((BuildCppDAO) taskDAO);
         }
         throw new IllegalArgumentException("Unknown type of task");
     }
