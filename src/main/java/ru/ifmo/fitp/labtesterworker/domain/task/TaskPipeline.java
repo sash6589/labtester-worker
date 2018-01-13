@@ -47,6 +47,11 @@ public class TaskPipeline {
 
         report.setFileTestsResult((String) storage.get(FILE_TESTS_RESULT_STORAGE_KEY));
 
+        // todo Костыль!
+        if (storage.containsKey("gcc main.c -o main -lm")) {
+            report.setFileTestsResult((String) storage.get("gcc main.c -o main -lm"));
+        }
+
         return report;
     }
 }

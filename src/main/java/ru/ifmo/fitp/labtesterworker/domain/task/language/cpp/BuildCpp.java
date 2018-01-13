@@ -20,6 +20,9 @@ public class BuildCpp extends CommandTask {
     public void perform() {
         LOG.info("Build program");
 
+        // todo Костыль!
+        processRunner.setStorage(storage);
+
         processRunner.startProcess((File) storage.get(SOLUTION_REPOSITORY_DIR_STORAGE_KEY));
     }
 }

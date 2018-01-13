@@ -3,7 +3,9 @@ package ru.ifmo.fitp.labtesterworker.domain.process;
 import org.apache.log4j.Logger;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class ProcessRunner {
@@ -16,9 +18,13 @@ public class ProcessRunner {
     private String stdout;
     private String stderr;
 
+    private Map<String, Object> storage;
+
     public ProcessRunner(List<String> command) {
         this.command = String.join(" ", command);
         this.processConfiguration = new ProcessConfiguration(command);
+        this.storage = null;
+
     }
 
     public String getStdout() {
@@ -27,6 +33,10 @@ public class ProcessRunner {
 
     public String getStderr() {
         return stderr;
+    }
+
+    public void setStorage(Map<String, Object> storage) {
+        this.storage = storage;
     }
 
     public boolean startProcess(File dir, long timeout) {
@@ -47,6 +57,10 @@ public class ProcessRunner {
                 if (exitValue != 0) {
                     LOG.info(String.format("Process stdout is '%s'", stdout));
                     LOG.info(String.format("Process stderr is '%s'", stderr));
+                    // todo Костыль!
+                    if (storage != null) {
+                        storage.put(command, stderr);
+                    }
                 }
             } else {
                 LOG.info(String.format("Command '%s' terminated due to timeout", command));
