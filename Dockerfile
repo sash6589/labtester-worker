@@ -1,6 +1,11 @@
 FROM openjdk:8-jdk
 
-RUN apt-get -y install git g++
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && \
+    apt-get -y install gcc g++ mono-mcs && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN apt-get -y install git
 
 EXPOSE 8087
 
