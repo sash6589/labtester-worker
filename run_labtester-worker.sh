@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+if [ -z "$1" ]
+  then
+    echo "run ./run_labtester-worker.sh DOTOKEN"
+    exit
+fi
+
+$DOTOKEN=$1
+
 rm log.txt
 rm -rf build
 
