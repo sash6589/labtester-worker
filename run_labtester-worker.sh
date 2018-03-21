@@ -43,6 +43,7 @@ docker-machine ssh node-3 "ufw enable"
 docker-machine ssh node-3 "systemctl restart docker"
 
 leader_ip=$(docker-machine ip node-1)
+export LABTESTERWORKER=$leader_ip
 
 echo "### Initializing Swarm mode ..."
 eval $(docker-machine env node-1)
@@ -59,7 +60,6 @@ docker-machine ssh node-1 "
     docker login --username labtestersystem --password labtester;
     docker service create -p 8087:8087 --with-registry-auth --name labtester-worker labtestersystem/labtester:latest
 "
-
 
 #sudo docker run --rm -p 8087:8087 labtester-worker/dockerize:latest >> log.txt &
 
