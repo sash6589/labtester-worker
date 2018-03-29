@@ -59,6 +59,7 @@ done
 docker-machine ssh node-1 "
     docker login --username labtestersystem --password labtester;
     docker service create -p 8087:8087 --with-registry-auth --name labtester-worker labtestersystem/labtester:latest
+    docker service scale labtester-worker=3
 "
 
 #sudo docker run --rm -p 8087:8087 labtester-worker/dockerize:latest >> log.txt &
