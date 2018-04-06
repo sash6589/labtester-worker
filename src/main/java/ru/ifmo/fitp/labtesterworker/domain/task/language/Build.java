@@ -1,18 +1,18 @@
-package ru.ifmo.fitp.labtesterworker.domain.task.language.cpp;
+package ru.ifmo.fitp.labtesterworker.domain.task.language;
 
 import org.apache.log4j.Logger;
-import ru.ifmo.fitp.labtesterworker.dao.task.language.cpp.BuildCppDAO;
+import ru.ifmo.fitp.labtesterworker.dao.task.language.BuildDAO;
 import ru.ifmo.fitp.labtesterworker.domain.task.CommandTask;
 
 import java.io.File;
 
 import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.SOLUTION_REPOSITORY_DIR_STORAGE_KEY;
 
-public class BuildCpp extends CommandTask {
+public class Build extends CommandTask {
 
-    private static Logger LOG = Logger.getLogger(BuildCpp.class);
+    private static Logger LOG = Logger.getLogger(Build.class);
 
-    public BuildCpp(BuildCppDAO dao) {
+    public Build(BuildDAO dao) {
         super(dao);
     }
 

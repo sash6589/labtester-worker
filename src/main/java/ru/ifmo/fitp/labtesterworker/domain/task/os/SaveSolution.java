@@ -18,7 +18,7 @@ public class SaveSolution extends AbstractTask {
     private static final Logger LOG = Logger.getLogger(SaveSolution.class);
 
     private static final String DIR_NAME = "program";
-    private static final String FILE_NAME_PATTERN = "main.";
+    private static final String FILE_NAME_PATTERN = "Main.";
 
     private String program;
     private String fileName;
