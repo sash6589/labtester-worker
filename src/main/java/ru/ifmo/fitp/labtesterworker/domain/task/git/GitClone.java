@@ -49,16 +49,19 @@ public class GitClone extends CommandTask {
 
     private File getRepositoryDir() {
         File envDir = (File) storage.get(WORKING_DIR_STORAGE_KEY);
-        File[] files = envDir.listFiles();
-        if (files == null) {
-            LOG.error("Environment directory is empty");
-            return envDir;
-        }
+//        File[] files = envDir.listFiles();
+//        if (files == null) {
+//            LOG.error("Environment directory is empty");
+//            return envDir;
+//        }
+//
+//        Optional<File> optional = Arrays.stream(files)
+//                .filter(file -> !("run".equals(file.getName())))
+//                .findFirst();
 
-        Optional<File> optional = Arrays.stream(files)
-                .filter(file -> !("run".equals(file.getName())))
-                .findFirst();
+        String[] items = gitUrl.split("/");
+        File dir = new File(envDir, items[items.length - 1]);
 
-        return optional.orElse(envDir);
+        return dir;
     }
 }

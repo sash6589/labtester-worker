@@ -65,7 +65,7 @@ public class TaskTransformer {
         }
         if (taskDAO instanceof TestsMoveToDAO) {
             return new MoveTo(TESTS_REPOSITORY_DIR_STORAGE_KEY, TESTS_DIR_STORAGE_KEY,
-                    TESTS_DIR_NAME_STORAGE_KEY, "tests");
+                    TESTS_DIR_NAME_STORAGE_KEY, "");
         }
         if (taskDAO instanceof FileTestsMoveToDAO) {
             return new MoveTo(FILE_TESTS_REPOSITORY_DIR_STORAGE_KEY, FILE_TESTS_DIR_STORAGE_KEY,

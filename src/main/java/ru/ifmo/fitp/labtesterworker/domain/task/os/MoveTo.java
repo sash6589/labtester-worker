@@ -45,7 +45,8 @@ public class MoveTo extends AbstractTask {
 
             LOG.info(String.format("Move files from %s to %s", fromDir.getCanonicalPath(), toDir.getCanonicalPath()));
 
-            FileUtils.moveDirectory(fromDir, toDir);
+            FileUtils.copyDirectory(fromDir, toDir);
+//            FileUtils.moveDirectory(fromDir, toDir);
         } catch (FileExistsException e) {
             LOG.info("Nothing to move: " + e.getMessage());
         } catch (IOException e) {

@@ -9,9 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
-import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.SOLUTION_REPOSITORY_DIR_NAME_STORAGE_KEY;
-import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.SOLUTION_REPOSITORY_DIR_STORAGE_KEY;
-import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.WORKING_DIR_STORAGE_KEY;
+import static ru.ifmo.fitp.labtesterworker.domain.task.TaskUtils.*;
 
 public class SaveSolution extends AbstractTask {
 
@@ -57,6 +55,7 @@ public class SaveSolution extends AbstractTask {
 
     private void fillStorage(File dir) throws IOException {
         storage.put(SOLUTION_REPOSITORY_DIR_STORAGE_KEY, dir);
+        storage.put(EXECUTABLE_DIR_STORAGE_KEY, dir);
         storage.put(SOLUTION_REPOSITORY_DIR_NAME_STORAGE_KEY, dir.getCanonicalPath());
     }
 }
