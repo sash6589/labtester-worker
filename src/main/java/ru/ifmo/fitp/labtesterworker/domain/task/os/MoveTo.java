@@ -51,7 +51,7 @@ public class MoveTo extends AbstractTask {
             LOG.info("Nothing to move: " + e.getMessage());
         } catch (IOException e) {
             LOG.error(e.getMessage());
-            throw new UncheckedIOException(e);
+//            throw new UncheckedIOException(e);
         } finally {
             fillStorage(toDir);
         }
